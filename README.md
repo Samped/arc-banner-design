@@ -1,89 +1,58 @@
-# ARC Community Banner
+# ARC Banner
 
-Editable SVG banner template for the ARC community. Members can add their profile photo, name, chapter/location, and optional tagline — then download as **SVG** or **PNG**.
+A small web tool for personalizing the ARC community banner. Upload a photo, fit it to the avatar frame, export PNG or SVG.
 
-**Live customizer:** enable [GitHub Pages](#host-on-github) and share the Pages URL.
+<p align="center">
+  <img src="preview.png" alt="ARC community banner preview" width="720" />
+</p>
 
-## Quick start (community)
+<p align="center">
+  <a href="https://samped.github.io/arc-banner-design/"><strong>Open Banner Studio →</strong></a>
+</p>
 
-1. Open the customizer (`index.html` on GitHub Pages, or run locally — see below).
-2. Upload your profile photo.
-3. Enter your name, chapter, and optional tagline.
-4. Click **Download SVG** or **Download PNG**.
+---
 
-## Use your Inkscape design
+## How it works
 
-The placeholder `arc-banner-template.svg` is a stand-in. Replace it with **your finished Inkscape file**, but keep these element IDs so the web customizer works:
+1. Upload a profile photo  
+2. Drag and zoom until the crop looks right  
+3. Download **PNG** or **SVG**
 
-| ID | Purpose |
-|---|---|
-| `avatar-image` | Profile photo (`<image>` element, usually inside a clip path) |
-| `user-name` | Name / username (`<text>`) |
-| `user-chapter` | Chapter or location (`<text>`) |
-| `custom-text` | Optional tagline (`<text>`) |
+Works in the browser. No account, no install.
 
-### Inkscape: assign IDs
-
-1. Open your `.svg` in Inkscape.
-2. Select the profile image placeholder → **Object → Object Properties** → set **ID** to `avatar-image`.
-3. Select each text field and set IDs: `user-name`, `user-chapter`, `custom-text`.
-4. For the avatar, use an `<image>` node (not a raster embedded without an image tag). A common pattern:
-   - Draw a circle for the avatar frame.
-   - **Object → Clip → Set**.
-   - Place an `<image>` inside the clipped group with `id="avatar-image"`.
-5. **File → Save As → Plain SVG** and overwrite `arc-banner-template.svg`.
-
-See [INKSCAPE.md](./INKSCAPE.md) for step-by-step Inkscape guidance.
-
-## Host on GitHub
-
-1. Create a new public repo (e.g. `arc-community-banner`).
-2. Push this folder:
+## Development
 
 ```bash
-cd "/home/samuel/Desktop/arc banner"
-git init -b main
-git add .
-git commit -m "Add ARC community banner template and customizer"
-git remote add origin https://github.com/YOUR_USERNAME/arc-community-banner.git
-git push -u origin main
-```
-
-3. On GitHub: **Settings → Pages → Build and deployment → Source: Deploy from branch → `main` / `/ (root)`**.
-4. After a minute, your customizer is live at:
-
-   `https://YOUR_USERNAME.github.io/arc-community-banner/`
-
-5. Update the repo link in `index.html` (`id="repo-link"`) to your actual repo URL.
-
-## Run locally
-
-```bash
-cd "/home/samuel/Desktop/arc banner"
+git clone https://github.com/Samped/arc-banner-design.git
+cd arc-banner-design
 python3 -m http.server 8080
 ```
 
-Open `http://localhost:8080` (a local server is required so the SVG template can load).
+Then open `http://localhost:8080`.
 
-## Contest submission
+## Deploy (GitHub Pages)
 
-> **Editable Inkscape SVG template:** Replace the avatar, name, location/chapter, and optional tagline while keeping the original design and visual style.  
-> **Template:** [link to `arc-banner-template.svg` or repo]  
-> **Customizer:** [link to GitHub Pages URL]
+**Settings → Pages → Build from branch `main` → `/ (root)`**
 
-Include a `preview.png` screenshot of a filled-in example banner for judges.
+The site will be available at:
 
-## Files
+`https://<username>.github.io/arc-banner-design/`
 
-| File | Description |
-|---|---|
-| `arc.svg` | Your original Inkscape source (keep for editing) |
-| `arc-banner-template.svg` | Customizable template used by the web app |
-| `index.html` | Web customizer UI |
-| `customizer.js` | Loads SVG, applies edits, triggers download |
-| `styles.css` | Customizer styling |
-| `INKSCAPE.md` | Detailed Inkscape preparation guide |
+## Project layout
 
-## License
+```
+arc-banner-template.svg   # Template loaded by the app
+arc.svg                   # Original Inkscape artwork
+index.html                # UI
+customizer.js             # Crop + export
+styles.css
+preview.png               # README preview
+```
 
-Community members may personalize the template for their own profiles. Credit the original design where appropriate per contest rules.
+## Template
+
+The customizer targets the circular avatar in `arc-banner-template.svg`. If you edit the artwork in Inkscape, keep the avatar clip and export paths intact — see `INKSCAPE.md` for notes.
+
+---
+
+ARC community banner · personal use welcome
