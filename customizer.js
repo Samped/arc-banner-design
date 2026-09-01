@@ -111,8 +111,15 @@ els.downloadPng.addEventListener("click", async () => {
   const url = URL.createObjectURL(blob);
 
   const img = new Image();
-  const width = Number(svgRoot.getAttribute("width")) || 1500;
-  const height = Number(svgRoot.getAttribute("height")) || 500;
+  const viewBoxParts = (svgRoot.getAttribute("viewBox") || "0 0 1500 500")
+    .trim()
+    .split(/[\s,]+/)
+    .map(Number);
+  const vbWidth = viewBoxParts[2] || 1500;
+  const vbHeight = viewBoxParts[3] || 500;
+  const targetWidth = 1500;
+  const width = targetWidth;
+  const height = Math.round((vbHeight / vbWidth) * targetWidth);
 
   await new Promise((resolve, reject) => {
     img.onload = resolve;

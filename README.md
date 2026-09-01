@@ -77,7 +77,8 @@ Include a `preview.png` screenshot of a filled-in example banner for judges.
 
 | File | Description |
 |---|---|
-| `arc-banner-template.svg` | Master template (swap in your Inkscape design) |
+| `arc.svg` | Your original Inkscape source (keep for editing) |
+| `arc-banner-template.svg` | Customizable template used by the web app |
 | `index.html` | Web customizer UI |
 | `customizer.js` | Loads SVG, applies edits, triggers download |
 | `styles.css` | Customizer styling |
