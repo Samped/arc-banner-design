@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARC Community Banner — Customize &amp; Download</title>
+  <meta name="description" content="Customize the ARC community banner with your profile photo, name, and chapter. Download as SVG or PNG." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1>ARC Community Banner</h1>
+      <p>Add your profile photo and details, then download your personalized banner.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls" aria-label="Customization options">
+      <h2>Customize</h2>
+
+      <label class="field">
+        <span class="label">Profile photo</span>
+        <input type="file" id="avatar-input" accept="image/*" />
+        <span class="hint">Square images work best. JPG, PNG, or WebP.</span>
+      </label>
+
+      <label class="field">
+        <span class="label">Name / username</span>
+        <input type="text" id="name-input" value="Your Name" maxlength="40" autocomplete="name" />
+      </label>
+
+      <label class="field">
+        <span class="label">Chapter / location</span>
+        <input type="text" id="chapter-input" value="Chapter / Location" maxlength="50" />
+      </label>
+
+      <label class="field">
+        <span class="label">Custom tagline <em>(optional)</em></span>
+        <input type="text" id="tagline-input" value="Optional custom tagline" maxlength="80" />
+      </label>
+
+      <div class="actions">
+        <button type="button" id="download-svg" class="btn primary">Download SVG</button>
+        <button type="button" id="download-png" class="btn secondary">Download PNG</button>
+      </div>
+
+      <p class="inkscape-note">
+        Prefer Inkscape? Download the
+        <a href="arc-banner-template.svg" download>raw SVG template</a>
+        and edit it directly.
+      </p>
+    </section>
+
+    <section class="panel preview-panel" aria-label="Banner preview">
+      <h2>Preview</h2>
+      <div id="preview-wrap" class="preview-wrap">
+        <div id="preview-loading" class="loading">Loading template…</div>
+        <div id="preview" class="preview" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Editable ARC community banner template.
+      <a href="https://github.com/" id="repo-link" target="_blank" rel="noopener">View on GitHub</a>
+    </p>
+  </footer>
+
+  <script src="customizer.js"></script>
+</body>
+</html>
