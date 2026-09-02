@@ -14,9 +14,10 @@ A small web tool for personalizing the ARC community banner. Upload a photo, fit
 
 ## How it works
 
-1. Upload a profile photo  
-2. Drag and zoom until the crop looks right  
-3. Download **PNG** or **SVG**
+1. Choose a background — **Blue** or **White**  
+2. Upload a profile photo  
+3. Drag and zoom until the crop looks right  
+4. Download **PNG** or **SVG**
 
 Works in the browser. No account, no install.
 

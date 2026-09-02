@@ -1,5 +1,16 @@
 const TEMPLATE_URL = "arc-banner-template.svg";
 
+const BACKGROUNDS = {
+  blue: {
+    fill: "#4e91f4",
+    opacity: "0.751337",
+  },
+  white: {
+    fill: "#ffffff",
+    opacity: "1",
+  },
+};
+
 const AVATAR = {
   cx: 363.551,
   cy: 19.414,
@@ -30,9 +41,11 @@ const els = {
   resetAvatar: document.getElementById("reset-avatar"),
   downloadSvg: document.getElementById("download-svg"),
   downloadPng: document.getElementById("download-png"),
+  bgOptions: document.querySelectorAll(".bg-option"),
 };
 
 let svgRoot = null;
+let currentBg = "blue";
 let avatarState = {
   src: null,
   baseW: AVATAR.d,
@@ -60,11 +73,43 @@ async function loadTemplate() {
   els.loading.hidden = true;
   els.preview.hidden = false;
   bindInputs();
+  setBackground(currentBg);
   applyAvatar();
 }
 
 function $(id) {
   return svgRoot.querySelector(`#${id}`);
+}
+
+function setBackground(key) {
+  const bg = BACKGROUNDS[key];
+  if (!bg) return;
+  currentBg = key;
+
+  const rect = $("banner-bg") || $("rect76");
+  if (!rect) return;
+
+  let style = rect.getAttribute("style") || "";
+  if (/fill:/i.test(style)) {
+    style = style.replace(/fill:[^;]*/i, `fill:${bg.fill}`);
+  } else {
+    style = `fill:${bg.fill};${style}`;
+  }
+  if (/fill-opacity:/i.test(style)) {
+    style = style.replace(/fill-opacity:[^;]*/i, `fill-opacity:${bg.opacity}`);
+  } else {
+    style = `fill-opacity:${bg.opacity};${style}`;
+  }
+
+  rect.setAttribute("style", style);
+  rect.setAttribute("fill", bg.fill);
+  rect.setAttribute("fill-opacity", bg.opacity);
+
+  els.bgOptions.forEach((btn) => {
+    const active = btn.dataset.bg === key;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
 }
 
 function coverSize(naturalW, naturalH, diameter) {
@@ -184,6 +229,10 @@ function endDrag() {
 }
 
 function bindInputs() {
+  els.bgOptions.forEach((btn) => {
+    btn.addEventListener("click", () => setBackground(btn.dataset.bg));
+  });
+
   els.avatarInput.addEventListener("change", async () => {
     const file = els.avatarInput.files?.[0];
     if (!file) return;
@@ -282,7 +331,7 @@ function downloadBlob(blob, filename) {
 
 els.downloadSvg.addEventListener("click", () => {
   const blob = new Blob([serializeSvg()], { type: "image/svg+xml;charset=utf-8" });
-  downloadBlob(blob, "arc-banner.svg");
+  downloadBlob(blob, `arc-banner-${currentBg}.svg`);
 });
 
 els.downloadPng.addEventListener("click", async () => {
@@ -315,7 +364,7 @@ els.downloadPng.addEventListener("click", async () => {
   URL.revokeObjectURL(url);
 
   canvas.toBlob((pngBlob) => {
-    if (pngBlob) downloadBlob(pngBlob, "arc-banner.png");
+    if (pngBlob) downloadBlob(pngBlob, `arc-banner-${currentBg}.png`);
   }, "image/png");
 });
 
